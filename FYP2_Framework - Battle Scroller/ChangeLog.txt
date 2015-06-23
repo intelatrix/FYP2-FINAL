@@ -1,0 +1,18 @@
+=== CHANGE LOG ===
+Model.cs
+isAnimated = true;
+CurAnimationIndex
+
+Global
+EngagingList
+
+Movement
+CurrentUnit
+Raycast Revamp
+
+Analog
+Min Value
+
+Aspect Ratio
+
+InputScript InputCollided Revamp
