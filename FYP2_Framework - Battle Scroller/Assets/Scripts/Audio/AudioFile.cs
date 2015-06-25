@@ -7,63 +7,48 @@ public class AudioFile : MonoBehaviour
     public enum A_TYPE
     {
         AUDIO_BGM,
-        AUDIO_INGAME,
-        AUDIO_CLICK,
-        AUDIO_FIRE,
-        AUDIO_TOTAL
-    } public A_TYPE Type;
-
-    //Play Flag
-    bool m_bPlaying;
+        AUDIO_EFFECTS
+    }
+	
+    AudioSource ThisSound;
+    
+    public A_TYPE AudioType;
+	public SoundManager.BGM ThisBGM;
+	public SoundManager.Effects ThisEffect;
 
     //Initialisation
     void Start()
     {
-        //Set Play Flag
-        if (this.GetComponent<AudioSource>() != null)
-            m_bPlaying = this.GetComponent<AudioSource>().isPlaying;
+		ThisSound = GetComponent<AudioSource>();
     }
-
-    //Constructor (Overloaded)
-    public AudioFile(A_TYPE Type)
-    {
-        Start();
-        this.Type = Type;
-    }
-
+    
     //Play
-    public void Play(bool PlayOnce = false)
+    public void Play()
     {
-        if (PlayOnce && m_bPlaying) return;
-
-        if (this.GetComponent<AudioSource>() != null)
-        {
-            this.GetComponent<AudioSource>().Play();
-            m_bPlaying = true;
-        }
+		if (ThisSound != null)
+		{
+			ThisSound.Play();
+		}
     }
 
     //Stop
     public void Stop()
     {
-        if (this.GetComponent<AudioSource>() != null)
+		if (ThisSound != null)
         {
-            this.GetComponent<AudioSource>().Stop();
-            m_bPlaying = false;
+			ThisSound.Stop();
         }
     }
 
     //Set Volume
     public void SetVolume(float f_Vol)
     {
-        if (this.GetComponent<AudioSource>() != null &&
-            this.GetComponent<AudioSource>().isPlaying)
-            this.GetComponent<AudioSource>().volume = f_Vol;
+		if ( ThisSound != null)
+			ThisSound.volume = f_Vol;
     }
 
     //Update Func
     void Update()
     {
-        this.SetVolume(VolumeBar.f_Vol);
     }
 }
