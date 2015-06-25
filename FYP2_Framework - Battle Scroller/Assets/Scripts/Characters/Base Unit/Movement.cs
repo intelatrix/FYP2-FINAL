@@ -34,7 +34,8 @@ public class Movement : MonoBehaviour
     public float MovementSpeed = 5.0f;                              // Toggle this value in Editor to increase or decrease movement speed
     public Unit theUnit;                                            // Unit Class
     public Map theMap;                                              // Current Map (for Collision detection)
-    KeyCode CurrentKey = KeyCode.V;                                 // Current Key
+    KeyCode CurrentKey_LR = KeyCode.V,
+            CurrentKey_UD = KeyCode.V;                        
     Vector3 PlayerLastPos;                                          // Player's Last Position
 
     void OnTriggerEnter(Collider col)
@@ -112,17 +113,11 @@ public class Movement : MonoBehaviour
                 break;
             case KeyCode.UpArrow:
             case KeyCode.W:
-                if (!(theUnit.theModel.CollisionRegions.CollidedUnwalkable && CurrentKey == Key))
-                    theUnit.transform.Translate(0, MovementSpeed * Time.deltaTime, 0);
-                if (!theUnit.theModel.CollisionRegions.CollidedUnwalkable)
-                    CurrentKey = Key;
+                theUnit.transform.Translate(0, MovementSpeed * Time.deltaTime, 0);
                 break;
             case KeyCode.DownArrow:
             case KeyCode.S:
-                if (!(theUnit.theModel.CollisionRegions.CollidedUnwalkable && CurrentKey == Key))
-                    theUnit.transform.Translate(0, -MovementSpeed * Time.deltaTime, 0);
-                if (!theUnit.theModel.CollisionRegions.CollidedUnwalkable)
-                    CurrentKey = Key;
+                theUnit.transform.Translate(0, -MovementSpeed * Time.deltaTime, 0);
                 break;
             default:
                 isMoving = false;
