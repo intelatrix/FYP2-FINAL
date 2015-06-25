@@ -160,8 +160,6 @@ public class InputScript : MonoBehaviour
                 else
                     TouchDown = false;
             }
-            else if (touch.phase == TouchPhase.Ended)
-                UserTouch.Instance.CurFingerIndex = 0;
         }
 #endif
     }
