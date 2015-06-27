@@ -22,6 +22,7 @@ public class SoundManager : MonoBehaviour
 	public Dictionary<BGM, AudioFile> BGMDict = new Dictionary<BGM, AudioFile>();
 	public Dictionary<Effects, AudioFile> EffectsDict = new Dictionary<Effects, AudioFile>();
 	
+	//Current playing BGM
 	AudioFile CurrentBGM;
 	
 	//Here is a private reference only this class can access
@@ -79,6 +80,7 @@ public class SoundManager : MonoBehaviour
 	{
 		if(CurrentBGM != null)
 		{
+			//Allow only one BGM to play at a time
 			CurrentBGM.Stop();
 		}
 		BGMDict[BGMType].Play();
@@ -113,6 +115,11 @@ public class SoundManager : MonoBehaviour
 		{
 			Audio.SetVolume(0);
 		}
+	}
+	
+	public void StopBGM()
+	{
+		CurrentBGM.Stop();
 	}
 }
 
