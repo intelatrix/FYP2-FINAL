@@ -28,5 +28,6 @@ public class VolumeBar : MonoBehaviour
         if (theText != null)
             theText.text = "VOLUME (" + Volume + "%)";
         f_Vol = theSlider.value;
+        SoundManager.Instance.ChangeVolume();
 	}
 }
