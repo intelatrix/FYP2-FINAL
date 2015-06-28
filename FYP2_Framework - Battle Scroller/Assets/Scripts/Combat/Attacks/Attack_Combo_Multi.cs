@@ -25,7 +25,7 @@ public class Attack_Combo_Multi : AttackScript
         this.Damage = 45.0f;
 
         //Set Anim Index
-        this.AnimationIndex = 6;
+        this.AnimationIndex = 2; //6
 
         //Set Anim Time
         this.AnimationTimer.Time = 2.0f;

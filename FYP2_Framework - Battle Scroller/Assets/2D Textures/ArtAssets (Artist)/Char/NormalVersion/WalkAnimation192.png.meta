@@ -1,9 +1,17 @@
 fileFormatVersion: 2
 guid: 9c9ed8f484a113c42bf54f310c82d0ad
-timeCreated: 1432617085
+timeCreated: 1435492542
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: WalkAnimation192_0
+    21300002: WalkAnimation192_1
+    21300004: WalkAnimation192_2
+    21300006: WalkAnimation192_3
+    21300008: WalkAnimation192_4
+    21300010: WalkAnimation192_5
+    21300012: WalkAnimation192_6
+    21300014: WalkAnimation192_7
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,25 +38,105 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
-    wrapMode: -1
-  nPOTScale: 1
+    wrapMode: 1
+  nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
-  alphaIsTransparency: 0
-  textureType: -1
+  alphaIsTransparency: 1
+  textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: WalkAnimation192_0
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 5
+        width: 113
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: WalkAnimation192_1
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 4
+        width: 97
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: WalkAnimation192_2
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 4
+        width: 67
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: WalkAnimation192_3
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 4
+        width: 73
+        height: 186
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: WalkAnimation192_4
+      rect:
+        serializedVersion: 2
+        x: 811
+        y: 4
+        width: 108
+        height: 183
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: WalkAnimation192_5
+      rect:
+        serializedVersion: 2
+        x: 1009
+        y: 3
+        width: 95
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: WalkAnimation192_6
+      rect:
+        serializedVersion: 2
+        x: 1218
+        y: 4
+        width: 62
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: WalkAnimation192_7
+      rect:
+        serializedVersion: 2
+        x: 1401
+        y: 3
+        width: 79
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 

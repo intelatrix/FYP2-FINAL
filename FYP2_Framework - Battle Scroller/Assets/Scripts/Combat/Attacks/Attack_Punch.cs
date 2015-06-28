@@ -19,7 +19,7 @@ public class Attack_Punch : AttackScript
         this.Damage = 15.0f;
 
         //Set Anim Index
-        this.AnimationIndex = 2;
+        this.AnimationIndex = 2; //2
 
         //Set Anim Time
         this.AnimationTimer.Time = 0.5f;

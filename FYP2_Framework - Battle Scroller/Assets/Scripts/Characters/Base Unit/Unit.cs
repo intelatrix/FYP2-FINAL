@@ -149,11 +149,13 @@ public class Unit : MonoBehaviour
             theModel.gameObject.tag = this.gameObject.tag = "UNIT";
 
         //Destroy if Dead
-        if (this.Stats.HP <= 0.0f)
+        if (this.Stats.HP <= 0.0f && this.gameObject.tag != "PLAYER")
         {
             ++Global.EnemyKillCount;
             Destroy(this.gameObject);
         }
+        else if (this.gameObject.tag == "PLAYER" && this.Stats.HP <= 0.0f)
+            Global.GameOver = true;
 
         //FSM
         UpdateStateChange();

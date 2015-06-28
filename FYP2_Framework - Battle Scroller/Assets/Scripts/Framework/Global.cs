@@ -14,6 +14,7 @@ public class Global : MonoBehaviour
     public static bool FreeCam = false; //Detect if Camera is "Free"
     public static short EnemyKillCount = 0;
     public static short ExecuteFirstComboCheck = 0;
+    public static bool GameOver = false;
 
     //Start Function
     void Start()

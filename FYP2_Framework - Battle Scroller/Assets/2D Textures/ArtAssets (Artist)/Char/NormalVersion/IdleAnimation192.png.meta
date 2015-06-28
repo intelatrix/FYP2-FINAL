@@ -1,9 +1,13 @@
 fileFormatVersion: 2
 guid: 4f8c3c8f5e0f66c4893d0df2a38035a3
-timeCreated: 1432617081
+timeCreated: 1435483475
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: IdleAnimation192_0
+    21300002: IdleAnimation192_1
+    21300004: IdleAnimation192_2
+    21300006: IdleAnimation192_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,25 +34,65 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
-    wrapMode: -1
-  nPOTScale: 1
+    wrapMode: 1
+  nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
-  alphaIsTransparency: 0
-  textureType: -1
+  alphaIsTransparency: 1
+  textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: IdleAnimation192_0
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 3
+        width: 43
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: IdleAnimation192_1
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 3
+        width: 43
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: IdleAnimation192_2
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 3
+        width: 43
+        height: 183
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: IdleAnimation192_3
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 3
+        width: 43
+        height: 183
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 
