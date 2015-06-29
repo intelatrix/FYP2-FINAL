@@ -10,6 +10,7 @@ public class Blob : Enemy {
 		STATE_IDLE = 0,
 		STATE_PETROL,
 		STATE_MOVE,
+		STATE_ATTACKING,
 		STATE_ATTACK,
 		STATE_DEATH
 	}
@@ -101,11 +102,11 @@ public class Blob : Enemy {
                 }
                 else if (Vector3.Distance(this.transform.position, MainChr.transform.position) <= 0.25)
                 {
-                    current_state = STATES.STATE_ATTACK;
+                    current_state = STATES.STATE_ATTACKING;
                 }
                 break;
-			case STATES.STATE_ATTACK:
-				//After Attacking, switch immediatly back to move
+			case STATES.STATE_ATTACKING:
+				//After Attacking, switch to attack to calculate damage
                 
 
 				break;
@@ -142,6 +143,10 @@ public class Blob : Enemy {
             this.transform.Translate((MainChr.gameObject.transform.position - this.transform.position).normalized * Time.deltaTime);
             //Debug.Log("Moveing");
             break;
+		case STATES.STATE_ATTACKING:
+			//Attack Main Character
+			//Debug.Log("Attacking");
+			break;
 		case STATES.STATE_ATTACK:
 			//Attack Main Character
             //Debug.Log("Attacking");
