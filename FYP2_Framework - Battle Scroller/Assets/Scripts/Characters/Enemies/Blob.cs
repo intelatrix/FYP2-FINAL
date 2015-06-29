@@ -14,10 +14,15 @@ public class Blob : Enemy {
 		STATE_DEATH
 	}
 	
+	enum TYPE 
+	{
+		SLIME_NORMAL,
+		SLIME_FIRE
+	}
+	
 	STATES current_state;
 	float NextPetrol = 0;
-	bool PetrolLeft = true;
-
+	bool PetrolLeft = false;
 
 	public void RandomizeStats()
 	{
@@ -84,7 +89,7 @@ public class Blob : Enemy {
 				else if(NextPetrol <= 0)
 				{
 					current_state = STATES.STATE_IDLE;
-                    NextPetrol = Random.Range(2f, 5f);
+                    NextPetrol = Random.Range(1f, 2f);
 				}
 				break;
 			case STATES.STATE_MOVE:
@@ -134,7 +139,7 @@ public class Blob : Enemy {
 			break;
 		case STATES.STATE_MOVE:
 			//Move towards main character
-            this.transform.Translate((MainChr.gameObject.transform.position - this.transform.position).normalized * Time.deltaTime* 5);
+            this.transform.Translate((MainChr.gameObject.transform.position - this.transform.position).normalized * Time.deltaTime);
             //Debug.Log("Moveing");
             break;
 		case STATES.STATE_ATTACK:

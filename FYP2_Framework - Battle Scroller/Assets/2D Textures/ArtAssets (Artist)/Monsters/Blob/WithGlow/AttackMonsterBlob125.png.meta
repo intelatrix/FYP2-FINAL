@@ -1,13 +1,14 @@
 fileFormatVersion: 2
-guid: aacaee497174f2e4c8685bf78965a8ce
-timeCreated: 1435487910
+guid: 5c1f7684655c3f248a76db0b7218478b
+timeCreated: 1435487884
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: IdleMonsterBlob70_0
-    21300002: IdleMonsterBlob70_1
-    21300004: IdleMonsterBlob70_2
-    21300006: IdleMonsterBlob70_3
+    21300000: AttackMonsterBlob125_0
+    21300002: AttackMonsterBlob125_1
+    21300004: AttackMonsterBlob125_2
+    21300006: AttackMonsterBlob125_3
+    21300008: AttackMonsterBlob125_4
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -31,7 +32,7 @@ TextureImporter:
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
-  maxTextureSize: 2048
+  maxTextureSize: 8192
   textureSettings:
     filterMode: -1
     aniso: 16
@@ -53,43 +54,53 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: IdleMonsterBlob70_0
+    - name: AttackMonsterBlob125_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 70
-        height: 70
+        width: 125
+        height: 125
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: IdleMonsterBlob70_1
+    - name: AttackMonsterBlob125_1
       rect:
         serializedVersion: 2
-        x: 70
+        x: 125
         y: 0
-        width: 70
-        height: 70
+        width: 125
+        height: 125
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: IdleMonsterBlob70_2
+    - name: AttackMonsterBlob125_2
       rect:
         serializedVersion: 2
-        x: 140
+        x: 250
         y: 0
-        width: 70
-        height: 70
+        width: 125
+        height: 125
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: IdleMonsterBlob70_3
+    - name: AttackMonsterBlob125_3
       rect:
         serializedVersion: 2
-        x: 210
+        x: 375
         y: 0
-        width: 70
-        height: 70
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: AttackMonsterBlob125_4
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 0
+        width: 125
+        height: 125
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

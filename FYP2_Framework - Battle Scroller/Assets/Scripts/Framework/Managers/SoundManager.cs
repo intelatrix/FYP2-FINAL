@@ -119,7 +119,10 @@ public class SoundManager : MonoBehaviour
 	
 	public void StopBGM()
 	{
-		CurrentBGM.Stop();
+		if(CurrentBGM != null)
+		{
+			CurrentBGM.Stop();
+		}
 	}
 }
 
