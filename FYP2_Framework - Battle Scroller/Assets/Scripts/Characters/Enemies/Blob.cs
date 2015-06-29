@@ -107,9 +107,11 @@ public class Blob : Enemy {
                 break;
 			case STATES.STATE_ATTACKING:
 				//After Attacking, switch to attack to calculate damage
-                
-
 				break;
+		case STATES.STATE_ATTACK:
+			//Attack Main Character
+			//Debug.Log("Attacking");
+			break;
 		}
 	}
 	
