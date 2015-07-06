@@ -6,7 +6,8 @@ public class Wave : MonoBehaviour
 {
 	// SIMPLE WAVE SYSTEM TO TEST CAMERA PANNING
     // ALLSON U CAN CHANGE THIS HOWEVER U LIKE
-    bool b_WaveCleared = false;
+    public bool b_WaveCleared = false,
+                b_ProceedToDestroy = false;
     public List<GameObject> ListOfEnemies = new List<GameObject>();
 
     void Start()
@@ -23,7 +24,7 @@ public class Wave : MonoBehaviour
         {
             b_WaveCleared = (ListOfEnemies.Count == 0);
 
-            if (b_WaveCleared)
+            if (b_ProceedToDestroy)
             {
                 CameraAuto.Instance.doPan = true;
                 b_WaveCleared = false;

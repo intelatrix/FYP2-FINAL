@@ -15,6 +15,7 @@ public class Global : MonoBehaviour
     public static short EnemyKillCount = 0;
     public static short ExecuteFirstComboCheck = 0;
     public static bool GameOver = false;
+    public bool GameOverShow;
 
     //Start Function
     void Start()
@@ -29,6 +30,7 @@ public class Global : MonoBehaviour
     //Update Function
     void Update()
     {
+        GameOverShow = GameOver;
         //Stop Char Movement during Free Cam
         if (FreeCam)
             StopMovement = true;

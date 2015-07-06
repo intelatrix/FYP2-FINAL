@@ -79,7 +79,7 @@ public class Unit : MonoBehaviour
         Debug.Log("Default Unit Stats Inited.");
         if (Stats != null)
             Stats.Set(1, Random.Range(300, 500),
-                      Random.Range(150, 250), Random.Range(100, 200),
+                      Random.Range(300, 350), Random.Range(100, 200),
                       Random.Range(150, 250), Random.Range(100, 200),
                       Random.Range(0.7f, 1.2f));
     }
@@ -121,7 +121,7 @@ public class Unit : MonoBehaviour
         switch (State)
         {
             case EState.IDLE:
-                if (theModel.CurAnimationIndex != 0)
+                if (theModel.CurAnimationIndex != 0 /*&& !(isPlayerUnit && CombatManager.Instance.isAttacking)*/)
                     theModel.SetAnimation(0);
                 break;
             case EState.ATTACK:
@@ -149,12 +149,12 @@ public class Unit : MonoBehaviour
             theModel.gameObject.tag = this.gameObject.tag = "UNIT";
 
         //Destroy if Dead
-        if (this.Stats.HP <= 0.0f && this.gameObject.tag != "PLAYER")
+        if (this.Stats.HP <= 0.0f && this.gameObject.tag != "PLAYER_UNIT")
         {
             ++Global.EnemyKillCount;
             Destroy(this.gameObject);
         }
-        else if (this.gameObject.tag == "PLAYER" && this.Stats.HP <= 0.0f)
+        else if (this.gameObject.tag == "PLAYER_UNIT" && this.Stats.HP <= 0.0f)
             Global.GameOver = true;
 
         //FSM

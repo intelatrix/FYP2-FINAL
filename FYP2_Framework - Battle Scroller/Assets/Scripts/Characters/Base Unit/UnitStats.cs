@@ -16,7 +16,7 @@ public class UnitStats : MonoBehaviour
 
     //public string UnitName = "Default_Unit";
     public string UnitName, UnitType;
-    public float HP = 0.0f, MAX_HP = 0.0f,
+    public float HP = 1.0f, MAX_HP = 1.0f,
                  Physical_Attack = 0.0f,
                  Physical_Defense = 0.0f,
                  Magical_Attack = 0.0f,

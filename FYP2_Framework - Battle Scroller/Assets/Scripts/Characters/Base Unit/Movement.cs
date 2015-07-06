@@ -78,6 +78,8 @@ public class Movement : MonoBehaviour
     //Movement 
     void Move(KeyCode Key)
     {
+        if (Global.GameOver) return;
+
         if (!CombatManager.Instance.isAttacking)
             theUnit.theModel.SetAnimation(1);
 

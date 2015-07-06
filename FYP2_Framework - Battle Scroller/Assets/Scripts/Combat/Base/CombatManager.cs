@@ -101,6 +101,8 @@ public class CombatManager : MonoBehaviour
 	//Update is called once per frame
 	void Update () 
     {
+        if (Global.GameOver) return;
+
         //Timer for Combos
         ComboActive = !Timer.ExecuteTime(ComboTimer.Time, ComboTimer.Index);
         if (!ComboActive)
