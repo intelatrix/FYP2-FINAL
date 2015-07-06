@@ -26,6 +26,18 @@ public class Model : MonoBehaviour
         }
     }
 
+	//Check if the animation type is same as the number pass in
+	public bool IsAnimation(short IndexCheck)
+	{
+	
+		return IndexCheck == CurAnimationIndex;
+	}
+	
+	public void SetTrigger(string Trigger)
+	{
+		this.GetComponent<Animator>().SetTrigger(Trigger);
+	}
+	
 	//Use this for initialization
 	void Start () 
     {

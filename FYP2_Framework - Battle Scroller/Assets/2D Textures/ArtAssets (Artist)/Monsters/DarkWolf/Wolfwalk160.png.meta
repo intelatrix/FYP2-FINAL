@@ -1,13 +1,15 @@
 fileFormatVersion: 2
-guid: 678ebea746026dd4196d5fdef77a707d
-timeCreated: 1435632324
+guid: e5188c06428b9df44bbdc10a85c349cd
+timeCreated: 1436115063
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: WalkMonsterBlob70_0
-    21300002: WalkMonsterBlob70_1
-    21300004: WalkMonsterBlob70_2
-    21300006: WalkMonsterBlob70_3
+    21300000: Wolfwalk160_0
+    21300002: Wolfwalk160_1
+    21300004: Wolfwalk160_2
+    21300006: Wolfwalk160_3
+    21300008: Wolfwalk160_4
+    21300010: Wolfwalk160_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -53,43 +55,63 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: WalkMonsterBlob70_0
+    - name: Wolfwalk160_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 70
-        height: 70
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: WalkMonsterBlob70_1
+    - name: Wolfwalk160_1
       rect:
         serializedVersion: 2
-        x: 70
+        x: 160
         y: 0
-        width: 70
-        height: 70
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: WalkMonsterBlob70_2
+    - name: Wolfwalk160_2
       rect:
         serializedVersion: 2
-        x: 140
+        x: 320
         y: 0
-        width: 70
-        height: 70
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: WalkMonsterBlob70_3
+    - name: Wolfwalk160_3
       rect:
         serializedVersion: 2
-        x: 210
+        x: 480
         y: 0
-        width: 70
-        height: 70
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Wolfwalk160_4
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Wolfwalk160_5
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 0
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -4,6 +4,14 @@ using System.Collections;
 public class Blob : Enemy {
 
     Unit MainChr;
+    
+    enum AnimationType
+    {
+    	ANI_IDLE,
+    	ANI_MOVE,
+    	ANI_ATTACK,
+    	ANI_TOTAL
+    }
 
 	enum STATES
 	{	
@@ -12,7 +20,8 @@ public class Blob : Enemy {
 		STATE_MOVE,
 		STATE_ATTACKING,
 		STATE_ATTACK,
-		STATE_DEATH
+		STATE_DEATH,
+		STATE_TOTAL
 	}
 	
 	enum TYPE 
@@ -24,7 +33,11 @@ public class Blob : Enemy {
 	STATES current_state;
 	float NextPetrol = 0;
 	bool PetrolLeft = false;
-
+	public CollisionRegion AttackRegion;
+	
+	bool FaceLeft = true;
+	Vector3 LastPosition;
+	
 	public void RandomizeStats()
 	{
 	    Debug.Log("Mage Stats Inited.");
@@ -50,6 +63,9 @@ public class Blob : Enemy {
 
 		current_state = STATES.STATE_IDLE;
         MainChr = Movement.Instance.theUnit;
+        
+		theModel.SetTrigger("BlobIdle");
+		LastPosition = this.transform.position;
 	}
 	
 	// Update is called once per frame
@@ -65,16 +81,17 @@ public class Blob : Enemy {
 		switch(current_state)
 		{
 			case STATES.STATE_IDLE:
-			theModel.SetAnimation(0);
 				//if Character is close enough, chase Character
 				//else if Timer is down, goes into petrol mode
                 //Debug.Log(Vector3.Distance(this.transform.position, MainChr.transform.position).ToString());
                 if (Vector3.Distance(this.transform.position, MainChr.transform.position) <= 2)
                 {
                     current_state = STATES.STATE_MOVE;
+					theModel.SetTrigger("BlobMove");
                 }
                 else if (NextPetrol <= 0)
                 {
+					theModel.SetTrigger("BlobMove");
                     current_state = STATES.STATE_PETROL;
                     NextPetrol = Random.Range(2f, 5f);
                     PetrolLeft = !PetrolLeft;
@@ -86,35 +103,50 @@ public class Blob : Enemy {
                 if (Vector3.Distance(this.transform.position, MainChr.transform.position) <= 2)
                 {
                     current_state = STATES.STATE_MOVE;
+					theModel.SetTrigger("BlobMove");
                 }
 				else if(NextPetrol <= 0)
 				{
+					theModel.SetTrigger("BlobIdle");
 					current_state = STATES.STATE_IDLE;
                     NextPetrol = Random.Range(1f, 2f);
 				}
 				break;
 			case STATES.STATE_MOVE:
-			theModel.SetAnimation(1);
 				//if Character Move out of range goes back to Idle
                 if (Vector3.Distance(this.transform.position, MainChr.transform.position) > 2)
                 {
+					theModel.SetTrigger("BlobIdle");
                     current_state = STATES.STATE_IDLE; 
                 }
                 else if (Vector3.Distance(this.transform.position, MainChr.transform.position) <= 0.25)
                 {
+					theModel.SetTrigger("BlobAttacking");
                     current_state = STATES.STATE_ATTACKING;
                 }
                 break;
 			case STATES.STATE_ATTACKING:
 				//After Attacking, switch to attack to calculate damage
-                
-
+				if(theModel.GetAnimation().GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+				{
+					current_state = STATES.STATE_ATTACK;
+					theModel.SetTrigger("BlobAttack");
+				}
 				break;
+		case STATES.STATE_ATTACK:
+			//After Attacking, switch to attack to calculate damage
+			if(theModel.GetAnimation().GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f)
+			{
+				current_state = STATES.STATE_IDLE;
+				theModel.SetTrigger("BlobIdle");
+			}
+			break;
 		}
 	}
 	
 	void Action()
 	{
+		LastPosition = this.transform.position;
 		switch(current_state)
 		{
 		case STATES.STATE_IDLE:
@@ -127,13 +159,11 @@ public class Blob : Enemy {
 			{
 				//MoveLeft
 				this.transform.Translate(new Vector3(-1.0f,0,0)*Time.deltaTime);
-                this.transform.localScale = new Vector3(-1,1,1);
 			}
 			else
 			{
 				//MoveRight
 				this.transform.Translate(new Vector3(1.0f,0,0)*Time.deltaTime);
-                this.transform.localScale = new Vector3(1,1,1);
 			}
 			NextPetrol -= Time.deltaTime;
             //Debug.Log("Petrolling");
@@ -152,5 +182,12 @@ public class Blob : Enemy {
             //Debug.Log("Attacking");
 			break;
 		}
+		
+		FaceLeft = LastPosition.x > this.transform.position.x;
+		
+		if(FaceLeft)
+			this.transform.localScale = new Vector3(-1,1,1);
+		else
+			this.transform.localScale = new Vector3(1,1,1);
 	}
 }

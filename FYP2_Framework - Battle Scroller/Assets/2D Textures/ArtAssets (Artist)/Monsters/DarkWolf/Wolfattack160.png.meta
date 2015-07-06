@@ -1,17 +1,18 @@
 fileFormatVersion: 2
-guid: 678ebea746026dd4196d5fdef77a707d
-timeCreated: 1435632324
+guid: 9ec9c8603b5d1f24a8d416aea7172093
+timeCreated: 1436115010
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: WalkMonsterBlob70_0
-    21300002: WalkMonsterBlob70_1
-    21300004: WalkMonsterBlob70_2
-    21300006: WalkMonsterBlob70_3
+    21300000: Wolfattack160_0
+    21300002: Wolfattack160_1
+    21300004: Wolfattack160_2
+    21300006: Wolfattack160_3
+    21300008: Wolfattack160_4
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -34,7 +35,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: 16
+    aniso: -1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -53,43 +54,53 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: WalkMonsterBlob70_0
+    - name: Wolfattack160_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 70
-        height: 70
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: WalkMonsterBlob70_1
+    - name: Wolfattack160_1
       rect:
         serializedVersion: 2
-        x: 70
+        x: 160
         y: 0
-        width: 70
-        height: 70
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: WalkMonsterBlob70_2
+    - name: Wolfattack160_2
       rect:
         serializedVersion: 2
-        x: 140
+        x: 320
         y: 0
-        width: 70
-        height: 70
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: WalkMonsterBlob70_3
+    - name: Wolfattack160_3
       rect:
         serializedVersion: 2
-        x: 210
+        x: 480
         y: 0
-        width: 70
-        height: 70
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Wolfattack160_4
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

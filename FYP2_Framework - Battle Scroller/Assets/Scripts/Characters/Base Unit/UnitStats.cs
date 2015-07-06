@@ -61,19 +61,6 @@ public class UnitStats : MonoBehaviour
         this.HP -= ((Other.Physical_Attack - this.Physical_Defense * 0.2f) * AdditionalMultiplier) * 0.01f * Damage;
     }
 
-    public void TakeMagicalDamage(UnitStats Other, float Damage)
-    {
-        float AdditionalMultiplier = 1.0f, //Additional Damage Multiplier (Crit)
-              CritRangeValue = Random.Range(0.0f, Critical); //Randomize a number from 0 to Critical
-
-        //^ Critical Stat = ^ Critical Chance = ^ Additional Damage
-        if (CritRangeValue > 0 && CritRangeValue < MAX_CRITICAL)
-            AdditionalMultiplier += Critical;
-
-        //Placeholder Formula
-        this.HP -= ((Other.Magical_Attack - this.Magical_Defense * 0.2f) * AdditionalMultiplier) * 0.01f * Damage;
-    }
-
 	//Use this for initialization
 	void Start () 
     {

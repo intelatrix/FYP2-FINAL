@@ -9,18 +9,34 @@ public class CollisionRegion : MonoBehaviour
     //Region's Type
     public enum RegionType
     {
-        REGION_UNWALKABLE
+        REGION_UNWALKABLE,
+        REGION_BLOB_ATTACK
+        
     } public RegionType Type;
 
 	void OnTriggerStay(Collider col)
     {
-        if (col.gameObject.tag == "UNWALKABLE" || col.gameObject.tag == "PLAYER")
-            inRegion = true;
+		switch(Type)
+		{
+		case RegionType.REGION_UNWALKABLE:
+			if (col.gameObject.tag == "UNWALKABLE" || col.gameObject.tag == "PLAYER")
+		    inRegion = true;
+		    break;
+		case RegionType.REGION_BLOB_ATTACK:
+	   		break;
+		}
     }
 
     void OnTriggerExit(Collider col)
     {
-		if (col.gameObject.tag == "UNWALKABLE" || col.gameObject.tag == "PLAYER")
-			inRegion = false;
+		switch(Type)
+		{
+		case RegionType.REGION_UNWALKABLE:
+			if (col.gameObject.tag == "UNWALKABLE" || col.gameObject.tag == "PLAYER")
+				inRegion = false;
+			break;
+		case RegionType.REGION_BLOB_ATTACK:
+			break;		
+		}
     }
 }

@@ -1,13 +1,14 @@
 fileFormatVersion: 2
-guid: 678ebea746026dd4196d5fdef77a707d
-timeCreated: 1435632324
+guid: 624199a2af1827b4fa7f02e8606768ca
+timeCreated: 1436092058
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: WalkMonsterBlob70_0
-    21300002: WalkMonsterBlob70_1
-    21300004: WalkMonsterBlob70_2
-    21300006: WalkMonsterBlob70_3
+    21300000: AttackMonsterRedBlob125_0
+    21300002: AttackMonsterRedBlob125_1
+    21300004: AttackMonsterRedBlob125_2
+    21300006: AttackMonsterRedBlob125_3
+    21300008: AttackMonsterRedBlob125_4
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -53,43 +54,53 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: WalkMonsterBlob70_0
+    - name: AttackMonsterRedBlob125_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 70
-        height: 70
+        width: 125
+        height: 125
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: WalkMonsterBlob70_1
+    - name: AttackMonsterRedBlob125_1
       rect:
         serializedVersion: 2
-        x: 70
+        x: 125
         y: 0
-        width: 70
-        height: 70
+        width: 125
+        height: 125
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: WalkMonsterBlob70_2
+    - name: AttackMonsterRedBlob125_2
       rect:
         serializedVersion: 2
-        x: 140
+        x: 250
         y: 0
-        width: 70
-        height: 70
+        width: 125
+        height: 125
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: WalkMonsterBlob70_3
+    - name: AttackMonsterRedBlob125_3
       rect:
         serializedVersion: 2
-        x: 210
+        x: 375
         y: 0
-        width: 70
-        height: 70
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: AttackMonsterRedBlob125_4
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 0
+        width: 125
+        height: 125
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

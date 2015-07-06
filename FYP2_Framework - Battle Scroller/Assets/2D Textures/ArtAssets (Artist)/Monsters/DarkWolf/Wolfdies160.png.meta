@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: 678ebea746026dd4196d5fdef77a707d
-timeCreated: 1435632324
+guid: 50c9934ac10bb054f93f1954b09b44ae
+timeCreated: 1436115034
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: WalkMonsterBlob70_0
-    21300002: WalkMonsterBlob70_1
-    21300004: WalkMonsterBlob70_2
-    21300006: WalkMonsterBlob70_3
+    21300000: Wolfdies160_0
+    21300002: Wolfdies160_1
+    21300004: Wolfdies160_2
+    21300006: Wolfdies160_3
+    21300008: Wolfdies160_4
+    21300010: Wolfdies160_5
+    21300012: Wolfdies160_6
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -53,43 +56,73 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: WalkMonsterBlob70_0
+    - name: Wolfdies160_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 70
-        height: 70
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: WalkMonsterBlob70_1
+    - name: Wolfdies160_1
       rect:
         serializedVersion: 2
-        x: 70
+        x: 160
         y: 0
-        width: 70
-        height: 70
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: WalkMonsterBlob70_2
+    - name: Wolfdies160_2
       rect:
         serializedVersion: 2
-        x: 140
+        x: 320
         y: 0
-        width: 70
-        height: 70
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: WalkMonsterBlob70_3
+    - name: Wolfdies160_3
       rect:
         serializedVersion: 2
-        x: 210
+        x: 480
         y: 0
-        width: 70
-        height: 70
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Wolfdies160_4
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Wolfdies160_5
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 0
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Wolfdies160_6
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

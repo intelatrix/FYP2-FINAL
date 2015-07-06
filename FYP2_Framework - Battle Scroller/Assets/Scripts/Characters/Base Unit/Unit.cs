@@ -191,4 +191,9 @@ public class Unit : MonoBehaviour
     {
         StaticUpdate();
 	}
+	
+	public void GetDamage(Unit AttackedBy)
+	{
+		
+	}
 }
