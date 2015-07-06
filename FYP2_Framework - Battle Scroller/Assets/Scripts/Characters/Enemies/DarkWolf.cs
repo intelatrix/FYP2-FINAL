@@ -16,6 +16,7 @@ public class DarkWolf : Enemy {
 	}
 	
 	public Collider WayPointsBoundary;
+	public CollisionRegion AttackRegion;
 	
 	STATES current_state;
 	float NextPetrol = 0;
@@ -26,7 +27,7 @@ public class DarkWolf : Enemy {
 	
 	Vector3 NextAroundPosition;
 	int NumberOfPoints;
-	
+	public GameObject WolfAnimator;
 	
 	public void RandomizeStats()
 	{
@@ -73,8 +74,8 @@ public class DarkWolf : Enemy {
 	
 	Vector3 RandomizePlayerPoint()
 	{
-		Vector3 TempVector = new Vector3(Random.Range(MainChr.transform.position.x - 1f,MainChr.transform.position.x + 1f),
-		                   Random.Range(MainChr.transform.position.y - 1f, MainChr.transform.position.y + 1f),
+		Vector3 TempVector = new Vector3(Random.Range(MainChr.transform.position.x - 1.2f,MainChr.transform.position.x + 1.2f),
+		                   Random.Range(MainChr.transform.position.y - 1.5f, MainChr.transform.position.y + 1.5f),
 		                   0.0f);
 		                   
 		TempVector.y = Mathf.Clamp(TempVector.y, -1.5f, 1.4f);
@@ -88,29 +89,74 @@ public class DarkWolf : Enemy {
 		switch(current_state)
 		{
 		case STATES.STATE_RUNAROUND:
-			if (Vector3.Distance(this.transform.position, MainChr.transform.position) <= 2)
+			if (Vector3.Distance(this.transform.position, MainChr.transform.position) <= 3)
 			{
 				current_state = STATES.STATE_AROUNDPLAYER;
 				NextAroundPosition = RandomizePlayerPoint();
-				NumberOfPoints = Random.Range(3,6);
+				NumberOfPoints = Random.Range(1,3);
 			}
 			break;
 		case STATES.STATE_AROUNDPLAYER:
 			//if Character Move out of range goes back to Idle
-			if (Vector3.Distance(this.transform.position, MainChr.transform.position) > 2)
+			if (Vector3.Distance(this.transform.position, MainChr.transform.position) > 3)
 			{
 				current_state = STATES.STATE_RUNAROUND; 
 			}
 			else if(NumberOfPoints == 0)
 			{
 				current_state = STATES.STATE_PREPARE; 
+				bool LeftSide = Random.Range(0,2) == 1;
+				if(LeftSide)
+					NextAroundPosition = new Vector3(-1.5f,0,0);
+				else
+					NextAroundPosition = new Vector3(1.5f,0,0);
 			}
 			break;
 		case STATES.STATE_PREPARE:
+			if (Vector3.Distance(this.transform.position, MainChr.transform.position) > 3)
+			{
+				current_state = STATES.STATE_RUNAROUND; 
+			}	
+			else if(this.transform.position == (MainChr.transform.position+NextAroundPosition))
+			{
+				current_state = STATES.STATE_ATTACK;
+				if( this.transform.position.x  > MainChr.transform.position.x)
+				{
+					//Left
+					this.transform.localScale = new Vector3(-1,1,1);
+					
+				}
+				else
+				{
+					//Right 
+					this.transform.localScale = new Vector3(1,1,1);
+				}		
+				
+				theModel.SetTrigger("DarkWolfAttack");
+			}
 			break;
 		case STATES.STATE_ATTACK:
 			//After Attacking, switch immediatly back to move
-			
+			if(theModel.GetAnimation().GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f)
+			{
+				if (Vector3.Distance(this.transform.position, MainChr.transform.position) <= 2)
+				{
+					current_state = STATES.STATE_AROUNDPLAYER;
+					NextAroundPosition = RandomizePlayerPoint();
+					NumberOfPoints = Random.Range(1,3);
+				}
+				else
+				{
+					current_state = STATES.STATE_RUNAROUND;
+				}
+				if(this.transform.localScale ==  new Vector3(-1,1,1))
+					this.transform.position -= WolfAnimator.transform.localPosition;
+				else 
+					this.transform.position += WolfAnimator.transform.localPosition;
+					
+				WolfAnimator.transform.localPosition = Vector3.zero;
+				theModel.SetTrigger("DarkWolfWalk");
+			}
 			
 			break;
 		}
@@ -126,12 +172,12 @@ public class DarkWolf : Enemy {
 			if(this.transform.position == NextPosition)
 				NextPosition = RandomizeWayPoint();
 				
-			this.transform.position = Vector3.MoveTowards(this.transform.position, NextPosition, 4.5f * Time.deltaTime);
+			this.transform.position = Vector3.MoveTowards(this.transform.position, NextPosition, 5f * Time.deltaTime);
 			break;
 		case STATES.STATE_AROUNDPLAYER:
 			//Move towards main character
 			//Debug.Log("Moveing");
-			this.transform.position = Vector3.MoveTowards(this.transform.position, NextAroundPosition, 4.5f * Time.deltaTime);
+			this.transform.position = Vector3.MoveTowards(this.transform.position, NextAroundPosition, 7.25f * Time.deltaTime);
 			
 			if(this.transform.position ==  NextAroundPosition)
 			{	
@@ -140,7 +186,7 @@ public class DarkWolf : Enemy {
 			}	
 			break;
 		case STATES.STATE_PREPARE:
-			
+			this.transform.position = Vector3.MoveTowards(this.transform.position, MainChr.transform.position+NextAroundPosition, 7.25f * Time.deltaTime);
 			break;
 		case STATES.STATE_ATTACK:
 			//Attack Main Character
@@ -148,11 +194,9 @@ public class DarkWolf : Enemy {
 			break;
 		}
 		
-		FaceLeft = LastPosition.x > this.transform.position.x;
-		
-		if(FaceLeft)
+		if(LastPosition.x > this.transform.position.x)
 			this.transform.localScale = new Vector3(-1,1,1);
-		else
+		else if(LastPosition.x < this.transform.position.x)
 			this.transform.localScale = new Vector3(1,1,1);
 	}
 }
