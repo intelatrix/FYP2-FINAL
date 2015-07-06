@@ -33,7 +33,11 @@ public class Blob : Enemy {
 	STATES current_state;
 	float NextPetrol = 0;
 	bool PetrolLeft = false;
-
+	public CollisionRegion AttackRegion;
+	
+	bool FaceLeft = true;
+	Vector3 LastPosition;
+	
 	public void RandomizeStats()
 	{
 	    Debug.Log("Mage Stats Inited.");
@@ -61,6 +65,7 @@ public class Blob : Enemy {
         MainChr = Movement.Instance.theUnit;
         
 		theModel.SetTrigger("BlobIdle");
+		LastPosition = this.transform.position;
 	}
 	
 	// Update is called once per frame
@@ -116,7 +121,7 @@ public class Blob : Enemy {
                 }
                 else if (Vector3.Distance(this.transform.position, MainChr.transform.position) <= 0.25)
                 {
-					theModel.SetTrigger("BlobAttack");
+					theModel.SetTrigger("BlobAttacking");
                     current_state = STATES.STATE_ATTACKING;
                 }
                 break;
@@ -124,19 +129,24 @@ public class Blob : Enemy {
 				//After Attacking, switch to attack to calculate damage
 				if(theModel.GetAnimation().GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 				{
-					current_state = STATES.STATE_IDLE;
-					theModel.SetTrigger("BlobIdle");
+					current_state = STATES.STATE_ATTACK;
+					theModel.SetTrigger("BlobAttack");
 				}
 				break;
 		case STATES.STATE_ATTACK:
-			//Attack Main Character
-			//Debug.Log("Attacking");
+			//After Attacking, switch to attack to calculate damage
+			if(theModel.GetAnimation().GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f)
+			{
+				current_state = STATES.STATE_IDLE;
+				theModel.SetTrigger("BlobIdle");
+			}
 			break;
 		}
 	}
 	
 	void Action()
 	{
+		LastPosition = this.transform.position;
 		switch(current_state)
 		{
 		case STATES.STATE_IDLE:
@@ -149,13 +159,11 @@ public class Blob : Enemy {
 			{
 				//MoveLeft
 				this.transform.Translate(new Vector3(-1.0f,0,0)*Time.deltaTime);
-                this.transform.localScale = new Vector3(-1,1,1);
 			}
 			else
 			{
 				//MoveRight
 				this.transform.Translate(new Vector3(1.0f,0,0)*Time.deltaTime);
-                this.transform.localScale = new Vector3(1,1,1);
 			}
 			NextPetrol -= Time.deltaTime;
             //Debug.Log("Petrolling");
@@ -174,5 +182,12 @@ public class Blob : Enemy {
             //Debug.Log("Attacking");
 			break;
 		}
+		
+		FaceLeft = LastPosition.x > this.transform.position.x;
+		
+		if(FaceLeft)
+			this.transform.localScale = new Vector3(-1,1,1);
+		else
+			this.transform.localScale = new Vector3(1,1,1);
 	}
 }

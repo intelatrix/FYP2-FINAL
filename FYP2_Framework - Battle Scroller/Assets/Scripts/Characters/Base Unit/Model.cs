@@ -7,7 +7,6 @@ public class Model : MonoBehaviour
     public ColliderManager CollisionRegions;
     public bool isAnimated = true;
     public short CurAnimationIndex = 0;
-    Animator ThisAnimator;
 
     //Returns own Animator
     public Animator GetAnimation()
