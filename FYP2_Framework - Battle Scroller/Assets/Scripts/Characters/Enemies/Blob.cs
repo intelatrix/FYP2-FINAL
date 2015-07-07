@@ -34,6 +34,7 @@ public class Blob : Enemy {
 	float NextPetrol = 0;
 	bool PetrolLeft = false;
 	public CollisionRegion AttackRegion;
+	bool DealDamage = false;
 	
 	bool FaceLeft = true;
 	Vector3 LastPosition;
@@ -131,6 +132,7 @@ public class Blob : Enemy {
 				{
 					current_state = STATES.STATE_ATTACK;
 					theModel.SetTrigger("BlobAttack");
+					DealDamage = false;
 				}
 				break;
 		case STATES.STATE_ATTACK:
@@ -180,6 +182,11 @@ public class Blob : Enemy {
 		case STATES.STATE_ATTACK:
 			//Attack Main Character
             //Debug.Log("Attacking");
+			if(AttackRegion.inRegion && !DealDamage)
+			{
+				Movement.Instance.theUnit.Stats.TakePhysicalDamage(this.Stats, 2.0f);
+				DealDamage = true;
+			}	
 			break;
 		}
 		

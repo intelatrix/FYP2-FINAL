@@ -9,6 +9,7 @@ public class Wave : MonoBehaviour
     public bool b_WaveCleared = false,
                 b_ProceedToDestroy = false;
     public List<GameObject> ListOfEnemies = new List<GameObject>();
+    public bool doNotPan = false;
 
     void Start()
     {
@@ -26,7 +27,8 @@ public class Wave : MonoBehaviour
 
             if (b_ProceedToDestroy)
             {
-                CameraAuto.Instance.doPan = true;
+            	if (!doNotPan)
+                	CameraAuto.Instance.doPan = true;
                 b_WaveCleared = false;
                 Destroy(this.gameObject);
             }

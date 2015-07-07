@@ -28,7 +28,10 @@ public class DarkWolf : Enemy {
 	Vector3 NextAroundPosition;
 	int NumberOfPoints;
 	public GameObject WolfAnimator;
-	
+	bool DealDamage = false;
+
+	public GameObject DestroyWhenKill;
+			
 	public void RandomizeStats()
 	{
 		Debug.Log("Wolf Inited.");
@@ -54,6 +57,9 @@ public class DarkWolf : Enemy {
 		
 		theModel.SetTrigger("DarkWolfWalk");
 		LastPosition = this.transform.position;
+		
+		current_state = STATES.STATE_RUNAROUND;
+		NextPosition = RandomizeWayPoint();
 	}
 	
 	// Update is called once per frame
@@ -89,7 +95,7 @@ public class DarkWolf : Enemy {
 		switch(current_state)
 		{
 		case STATES.STATE_RUNAROUND:
-			if (Vector3.Distance(this.transform.position, MainChr.transform.position) <= 3)
+			if (Vector3.Distance(this.transform.position, MainChr.transform.position) <= 2f)
 			{
 				current_state = STATES.STATE_AROUNDPLAYER;
 				NextAroundPosition = RandomizePlayerPoint();
@@ -98,7 +104,7 @@ public class DarkWolf : Enemy {
 			break;
 		case STATES.STATE_AROUNDPLAYER:
 			//if Character Move out of range goes back to Idle
-			if (Vector3.Distance(this.transform.position, MainChr.transform.position) > 3)
+			if (Vector3.Distance(this.transform.position, MainChr.transform.position) > 2f)
 			{
 				current_state = STATES.STATE_RUNAROUND; 
 			}
@@ -113,11 +119,11 @@ public class DarkWolf : Enemy {
 			}
 			break;
 		case STATES.STATE_PREPARE:
-			if (Vector3.Distance(this.transform.position, MainChr.transform.position) > 3)
+			if (Vector3.Distance(this.transform.position, MainChr.transform.position) > 2f)
 			{
 				current_state = STATES.STATE_RUNAROUND; 
 			}	
-			else if(this.transform.position == (MainChr.transform.position+NextAroundPosition))
+			else if(Vector3.Distance(this.transform.position,(MainChr.transform.position+NextAroundPosition)) <= 0.5f)
 			{
 				current_state = STATES.STATE_ATTACK;
 				if( this.transform.position.x  > MainChr.transform.position.x)
@@ -131,7 +137,7 @@ public class DarkWolf : Enemy {
 					//Right 
 					this.transform.localScale = new Vector3(1,1,1);
 				}		
-				
+				DealDamage = false;
 				theModel.SetTrigger("DarkWolfAttack");
 			}
 			break;
@@ -139,7 +145,7 @@ public class DarkWolf : Enemy {
 			//After Attacking, switch immediatly back to move
 			if(theModel.GetAnimation().GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f)
 			{
-				if (Vector3.Distance(this.transform.position, MainChr.transform.position) <= 2)
+				if (Vector3.Distance(this.transform.position, MainChr.transform.position) <= 2f)
 				{
 					current_state = STATES.STATE_AROUNDPLAYER;
 					NextAroundPosition = RandomizePlayerPoint();
@@ -191,6 +197,11 @@ public class DarkWolf : Enemy {
 		case STATES.STATE_ATTACK:
 			//Attack Main Character
 			//Debug.Log("Attacking");
+			if(AttackRegion.inRegion && !DealDamage)
+			{
+				Movement.Instance.theUnit.Stats.TakePhysicalDamage(this.Stats, 5.0f);
+				DealDamage = true;
+			}	
 			break;
 		}
 		
@@ -198,5 +209,10 @@ public class DarkWolf : Enemy {
 			this.transform.localScale = new Vector3(-1,1,1);
 		else if(LastPosition.x < this.transform.position.x)
 			this.transform.localScale = new Vector3(1,1,1);
+	}
+	
+	public override void KillUnit()
+	{
+		Destroy(DestroyWhenKill);
 	}
 }

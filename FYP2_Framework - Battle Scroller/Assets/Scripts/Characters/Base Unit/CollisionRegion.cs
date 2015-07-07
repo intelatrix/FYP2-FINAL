@@ -10,7 +10,8 @@ public class CollisionRegion : MonoBehaviour
     public enum RegionType
     {
         REGION_UNWALKABLE,
-        REGION_BLOB_ATTACK
+        REGION_BLOB_ATTACK,
+        REGION_WOLF_ATTACK
         
     } public RegionType Type;
 
@@ -23,7 +24,13 @@ public class CollisionRegion : MonoBehaviour
 		    inRegion = true;
 		    break;
 		case RegionType.REGION_BLOB_ATTACK:
+			if (col.gameObject.tag == "PLAYER_BOX")
+				inRegion = true;
 	   		break;
+   		case RegionType.REGION_WOLF_ATTACK:
+			if (col.gameObject.tag == "PLAYER_BOX")
+				inRegion = true;
+			break;
 		}
     }
 
@@ -36,7 +43,13 @@ public class CollisionRegion : MonoBehaviour
 				inRegion = false;
 			break;
 		case RegionType.REGION_BLOB_ATTACK:
-			break;		
+			if (col.gameObject.tag == "PLAYER_BOX")
+				inRegion = false;
+			break;
+		case RegionType.REGION_WOLF_ATTACK:
+			if (col.gameObject.tag == "PLAYER_BOX")
+				inRegion = false;
+			break;
 		}
     }
 }

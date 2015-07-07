@@ -152,7 +152,9 @@ public class Unit : MonoBehaviour
         if (this.Stats.HP <= 0.0f && this.gameObject.tag != "PLAYER_UNIT")
         {
             ++Global.EnemyKillCount;
-            Destroy(this.gameObject);
+			KillUnit();
+			if(this.gameObject != null)
+            	Destroy(this.gameObject);
         }
         else if (this.gameObject.tag == "PLAYER_UNIT" && this.Stats.HP <= 0.0f)
             Global.GameOver = true;
@@ -195,5 +197,11 @@ public class Unit : MonoBehaviour
 	public void GetDamage(Unit AttackedBy)
 	{
 		
+	}
+	
+	public virtual void KillUnit()
+	{
+	
+	
 	}
 }
