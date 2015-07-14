@@ -19,7 +19,7 @@ public class Attack_Kick : AttackScript
         this.Damage = 20.0f;
 
         //Set Anim Index
-        this.AnimationIndex = 2; //6
+        this.AnimationIndex = 3; //6
 
         //Set Anim Time
         this.AnimationTimer.Time = 0.5f;
