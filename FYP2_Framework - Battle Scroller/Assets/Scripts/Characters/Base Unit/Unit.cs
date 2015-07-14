@@ -8,6 +8,7 @@ public class Unit : MonoBehaviour
     public enum UType
     {
         UNIT_DEFAULT,
+        UNIT_PLAYER,
         UNIT_MAGE
     } public UType UnitType = UType.UNIT_DEFAULT;
 

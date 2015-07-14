@@ -33,7 +33,7 @@ public class Wave : MonoBehaviour
                 Destroy(this.gameObject);
             }
 
-            yield return new WaitForSeconds(.2f);
+            yield return null;
         }
 	}
 
@@ -52,7 +52,7 @@ public class Wave : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSeconds(.1f);
+            yield return null;
         }
     }
 }

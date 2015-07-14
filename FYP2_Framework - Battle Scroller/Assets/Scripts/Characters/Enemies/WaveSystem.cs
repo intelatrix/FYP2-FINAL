@@ -25,14 +25,14 @@ public class WaveSystem : MonoBehaviour
 //            WaveList[curIndex - 1].b_ProceedToDestroy = true;
 //        }
 
-		if(WaveList.Count > 0 && WaveList[0].b_WaveCleared)
+		if (WaveList.Count > 0 && WaveList[0].b_WaveCleared)
 		{
 			WaveList[0].doNotPan = (WaveList.Count == 1);
 				
 			++curIndex;
 			WaveList[0].b_ProceedToDestroy = true;
 			WaveList.RemoveAt(0);
-			if(WaveList.Count > 0)
+			if (WaveList.Count > 0)
 			{
 				foreach(Transform child in WaveList[0].transform)
 				{

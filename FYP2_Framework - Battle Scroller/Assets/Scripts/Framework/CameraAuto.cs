@@ -115,7 +115,7 @@ public class CameraAuto : MonoBehaviour
     {
         //Pan Camera
         if (doPan)
-            PanCam(Movement.Instance.theUnit.gameObject);
+            PanCam(PlayerInstance.Instance.gameObject);
 
         //Test
         if (Input.GetKeyDown(KeyCode.P))
