@@ -4,12 +4,20 @@ using System.Collections.Generic;
 
 using GooglePlayGames;
 using UnityEngine.SocialPlatforms;
+using GooglePlayGames.BasicApi;
 
 using System.Runtime.Serialization.Formatters.Binary;
 using System;
 using GooglePlayGames.BasicApi.Multiplayer;
+using System.Runtime.InteropServices;
 
-public class MultiplayerManager : GooglePlayGames.BasicApi.Multiplayer.RealTimeMultiplayerListener {
+using UnityEngine.UI;
+
+public class MultiplayerManager : MonoBehaviour  {
+
+	int NoReadied = 0;
+	bool Ready = false;
+	public GameObject TextTesting;
 
 	protected MultiplayerManager()
 	{
@@ -21,6 +29,7 @@ public class MultiplayerManager : GooglePlayGames.BasicApi.Multiplayer.RealTimeM
 		SIGN_IN_NONE,
 		SIGN_IN_FAILED,
 		SIGN_IN_PASS,
+		SIGN_IN_GAME
 	}
 	
 	private static MultiplayerManager mInstance;
@@ -42,26 +51,103 @@ public class MultiplayerManager : GooglePlayGames.BasicApi.Multiplayer.RealTimeM
 	public String MyPID{ get; private set; }
 	String HostID;
 	
+	Listener GameListener = new Listener();
+	
+	System.Action<bool> mAuthCallback;
+	
+	//To Test Decoding and Encoding
+	void Start()
+	{	
+		GameListener.Init(this);
+		
+		mAuthCallback = (bool success) => 
+		{
+			if (success)
+			{
+				TextTesting.GetComponent<Text>().text = "Authenticated";
+			}
+			else 
+			{
+				TextTesting.GetComponent<Text>().text = "Authentication Failed";
+			}
+		};
+		
+	
+		M_GameStart Test = new M_GameStart();
+		Test.HostID = "Allson";
+		Debug.Log (Test.HostID );
+		byte[] MiddleMan =  getBytes(Test);
+		
+		M_GameStart Test2 = new M_GameStart();
+		fromBytes(MiddleMan, ref Test2);
+		Debug.Log (Test2.HostID );
+		
+		M_GameStart Test3 = new M_GameStart();
+		byte[] Type = {(byte)MessageType.MESSAGE_STARTGAME};
+		byte[] Message = MiddleMan;
+		byte[] FinalMessage = CombineMessages(Type,Message);
+		fromBytes(FinalMessage, ref Test3);
+		Debug.Log (Test3.HostID );
+		
+		M_GameStart Test4 = new M_GameStart();
+		MessageType TypeOfMessage = (MessageType)FinalMessage[0];
+		RemoveMessageType(ref FinalMessage);
+		fromBytes(FinalMessage, ref Test4);
+		Debug.Log (Test4.HostID );
+		
+		switch(TypeOfMessage)
+		{
+		case MessageType.MESSAGE_STARTGAME:
+			Debug.Log ("Loving it");
+			break;
+		default: 
+			Debug.Log ("You fucked up");
+			break;
+		}
+		
+		PlayGamesPlatform.DebugLogEnabled = true;
+		PlayGamesPlatform.Activate();
+
+		PlayGamesPlatform.Instance.Authenticate(mAuthCallback);
+		
+		StartUp();
+		
+
+	}
+	
+	
+	void Update()
+	{
+		if(CurrentOnlineStatus == SignInStatus.SIGN_IN_PASS)
+		{
+			CurrentOnlineStatus = SignInStatus.SIGN_IN_GAME;
+		}
+	}
 	//Used to Sign in
 	public void StartUp()
 	{
+		TextTesting.GetComponent<Text>().text = "Starting Up";
 		Social.localUser.Authenticate((bool success) => 
 		{
 			// handle success or failure
 			if(success)
+			{
 				CurrentOnlineStatus = SignInStatus.SIGN_IN_PASS;
+				TextTesting.GetComponent<Text>().text = "Connected";
+			}
 			else
 				CurrentOnlineStatus = SignInStatus.SIGN_IN_FAILED;
 		});
 	
 	}
 	
-	const int MinOpponents = 1, MaxOpponents = 3;
-	const int GameVariant = 0;
+	const int MinOpponents = 2, MaxOpponents = 4;
+	const int GameVariant = 1;
 	
 	public void AutoMatch()
 	{
-		PlayGamesPlatform.Instance.RealTime.CreateQuickGame(MinOpponents, MaxOpponents, GameVariant, this);
+		TextTesting.GetComponent<Text>().text = "Automatching";
+		PlayGamesPlatform.Instance.RealTime.CreateQuickGame(MinOpponents, MaxOpponents, GameVariant, GameListener);
 	}
 	
 	public void OnRoomSetupProgress(float progress) 
@@ -69,18 +155,20 @@ public class MultiplayerManager : GooglePlayGames.BasicApi.Multiplayer.RealTimeM
 		// update progress bar
 		// (progress goes from 0.0 to 100.0)
 		// Progress of Joining Room
+		TextTesting.GetComponent<Text>().text = progress.ToString();
 	}
 	
 	public void OnRoomConnected(bool success)
 	{
 		if (success) 
 		{
-			MyPID = GetSelf().ParticipantId;
-			SetUpHost();
+			TextTesting.GetComponent<Text>().text = "Room Connected";
+			//MyPID = GetSelf().ParticipantId;
+			//MD_SetUpHost();
 		} 
 		else 
 		{	
-			
+			TextTesting.GetComponent<Text>().text = "Room Connection Failed";
 		}
 	}
 	
@@ -108,9 +196,27 @@ public class MultiplayerManager : GooglePlayGames.BasicApi.Multiplayer.RealTimeM
 		
 		switch(Type)
 		{
+			//Received what the ID of the host is
+			case MessageType.MESSAGE_SETUPHOST:
+			
+				M_GameStart Message = new M_GameStart();
+				fromBytes(data, ref Message);
+				Debug.Log (Message.HostID);
+				HostID = Message.HostID;
+				TextTesting.GetComponent<Text>().text = "Host Connected";
+				//Set Up Game Here
+				
+				MD_ReadyCall();
+				break;
+			//*Only Host will received* Receive that someone has setup the host and game
+			case MessageType.MESSAGE_HOSTCONFIRMED:
+				++NoReadied;
+				
+				if(NoReadied >= GetAllP().Count && Ready)
+					MD_StartGame();
+				break;
+			//*Everyone but host should receive* 
 			case MessageType.MESSAGE_STARTGAME:
-				String result = System.Text.Encoding.UTF8.GetString(data);
-				Debug.Log (result);
 				break;
 		}
 	}
@@ -126,7 +232,7 @@ public class MultiplayerManager : GooglePlayGames.BasicApi.Multiplayer.RealTimeM
 		return PlayGamesPlatform.Instance.RealTime.GetConnectedParticipants();
 	}
 	
-	private void SetUpHost()
+	private void MD_SetUpHost()
 	{
 		List<Participant> Players = GetAllP();
 		if(Players[0].ParticipantId == MyPID)
@@ -136,13 +242,29 @@ public class MultiplayerManager : GooglePlayGames.BasicApi.Multiplayer.RealTimeM
 			
 			String HostID = Players[ChosenHost].ParticipantId;
 			
-			byte[] Type = {(byte)MessageType.MESSAGE_STARTGAME};
-			byte[] Message = System.Text.Encoding.UTF8.GetBytes(HostID);
+			byte[] Type = {(byte)MessageType.MESSAGE_SETUPHOST};
+			M_GameStart Message = new M_GameStart();
+			Message.HostID = HostID;
+			byte[] ByteMessage = getBytes(Message);
 			
-			byte[] FinalMessage = CombineMessages(Type,Message);
+			byte[] FinalMessage = CombineMessages(Type,ByteMessage);
+			
+			TextTesting.GetComponent<Text>().text = "I am Host";
 			
 			PlayGamesPlatform.Instance.RealTime.SendMessageToAll(true, FinalMessage);
 		}
+	}
+	
+	private void MD_ReadyCall()
+	{
+		byte[] FinalMessage = {(byte)MessageType.MESSAGE_SETUPHOST};
+		PlayGamesPlatform.Instance.RealTime.SendMessage(true,HostID,FinalMessage);
+	}
+	
+	private void MD_StartGame()
+	{
+	
+	
 	}
 	
 	private byte[] CombineMessages(byte[] Array1, byte[] Array2)
@@ -161,18 +283,47 @@ public class MultiplayerManager : GooglePlayGames.BasicApi.Multiplayer.RealTimeM
 		Message = list.ToArray();
 	}
 	
+	//All the Messages struct and enum will be after this
 	enum MessageType
 	{
+		MESSAGE_SETUPHOST,
+		MESSAGE_HOSTCONFIRMED,
 		MESSAGE_STARTGAME
 	}
 	
-	
-	[Serializable]
-	public struct GameStart
+	public struct M_GameStart
 	{
-		String HostID;
+		//Must be placed before every string in the struct
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 50)]
+		public String HostID;
+			
 	}
 	
+	//Tp stands for template
+	byte[] getBytes<TP>(TP str) {
+		int size = Marshal.SizeOf(str);
+		byte[] arr = new byte[size];
+		
+		IntPtr ptr = Marshal.AllocHGlobal(size);
+		Marshal.StructureToPtr(str, ptr, true);
+		Marshal.Copy(ptr, arr, 0, size);
+		Marshal.FreeHGlobal(ptr);
+		return arr;
+	}
+	
+	void fromBytes<TP>(byte[] arr, ref TP outStr) where TP : new(){
+		TP str = new TP();
+		
+		int size = Marshal.SizeOf(str);
+		IntPtr ptr = Marshal.AllocHGlobal(size);
+		
+		Marshal.Copy(arr, 0, ptr, size);
+		
+		str = (TP)Marshal.PtrToStructure(ptr, str.GetType());
+		Marshal.FreeHGlobal(ptr);
+		
+		outStr = str;
+	}
 }
 	
 	

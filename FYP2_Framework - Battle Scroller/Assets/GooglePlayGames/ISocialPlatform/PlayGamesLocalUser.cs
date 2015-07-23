@@ -28,11 +28,14 @@ namespace GooglePlayGames
         internal PlayGamesPlatform mPlatform;
 
         private WWW mAvatarUrl;
+        private Texture2D mImage;
 
         internal PlayGamesLocalUser(PlayGamesPlatform plaf)
         {
             mPlatform = plaf;
             mAvatarUrl = null;
+            mImage = null;
+
         }
 
         /// <summary>
@@ -163,16 +166,22 @@ namespace GooglePlayGames
 
             // the url can be null if the user does not have an
             // avatar configured.
-            if (url != null)
+            if (!string.IsNullOrEmpty(url))
             {
                 if (mAvatarUrl == null || mAvatarUrl.url != url)
                 {
                     mAvatarUrl = new WWW(url);
+                    mImage = null;
+                }
+
+                if (mImage != null) {
+                    return mImage;
                 }
 
                 if (mAvatarUrl.isDone)
                 {
-                    return mAvatarUrl.texture;
+                    mImage =  mAvatarUrl.texture;
+                    return mImage;
                 }
             }
 
