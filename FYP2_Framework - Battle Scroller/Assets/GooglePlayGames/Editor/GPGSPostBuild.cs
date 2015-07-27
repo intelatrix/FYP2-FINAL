@@ -21,7 +21,14 @@ namespace GooglePlayGames
     using System.IO;
     using UnityEditor.Callbacks;
     using UnityEditor;
+
+    // Use the included xcode support for unity 5+,
+    // otherwise use the backported code.
+#if UNITY_5
     using UnityEditor.iOS.Xcode;
+#else
+    using GooglePlayGames.xcode;
+#endif
     using GooglePlayGames;
     using GooglePlayGames.Editor.Util;
 	using UnityEngine;
@@ -35,7 +42,7 @@ namespace GooglePlayGames
         [PostProcessBuild]
         public static void OnPostprocessBuild(BuildTarget target, string pathToBuiltProject)
         {
-#if UNITY_5_0
+#if UNITY_5
             if (target != BuildTarget.iOS) {
                 return;
             }
@@ -185,6 +192,13 @@ namespace GooglePlayGames
 
             string fileGuid =
                  proj.FindFileGuidByProjectPath("Libraries/Plugins/iOS/GPGSAppController.mm");
+
+            if (fileGuid == null) {
+                // look in the legacy location
+                fileGuid =
+                    proj.FindFileGuidByProjectPath("Libraries/GPGSAppController.mm");
+            }
+
 
             List<string> list = new List<string>();
             list.Add("-fobjc-arc");

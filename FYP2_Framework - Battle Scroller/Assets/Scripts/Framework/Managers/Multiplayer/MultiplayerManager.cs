@@ -18,7 +18,10 @@ public class MultiplayerManager : MonoBehaviour  {
 	int NoReadied = 0;
 	bool Ready = false;
 	public GameObject TextTesting;
+	Invitation mIncomingInvitation;
 
+	public GameObject Accept, Decline;
+	
 	protected MultiplayerManager()
 	{
 		CurrentOnlineStatus = SignInStatus.SIGN_IN_NONE;
@@ -105,6 +108,13 @@ public class MultiplayerManager : MonoBehaviour  {
 			break;
 		}
 		
+		PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
+			// registers a callback to handle game invitations.
+			.WithInvitationDelegate(OnInvitationReceived) 
+			.Build();
+		
+		PlayGamesPlatform.InitializeInstance(config);
+		
 		PlayGamesPlatform.DebugLogEnabled = true;
 		PlayGamesPlatform.Activate();
 
@@ -115,6 +125,23 @@ public class MultiplayerManager : MonoBehaviour  {
 
 	}
 	
+	public void OnInvitationReceived(Invitation invitation, bool shouldAutoAccept) 
+	{
+		if (shouldAutoAccept) 
+		{
+			PlayGamesPlatform.Instance.RealTime.AcceptInvitation(invitation.InvitationId, GameListener);
+		}
+		else
+		{
+			mIncomingInvitation = invitation;
+			
+			string who = (mIncomingInvitation.Inviter != null && 
+			              mIncomingInvitation.Inviter.DisplayName != null) ?
+				mIncomingInvitation.Inviter.DisplayName : "Someone";
+			
+			TextTesting.GetComponent<Text>().text = who + "is inviting you";
+		}
+	}
 	
 	void Update()
 	{
@@ -122,6 +149,27 @@ public class MultiplayerManager : MonoBehaviour  {
 		{
 			CurrentOnlineStatus = SignInStatus.SIGN_IN_GAME;
 		}
+		
+		if (mIncomingInvitation != null) 
+		{
+			Accept.SetActive(true);
+			Decline.SetActive(true);
+		}
+		else 
+		{
+			Accept.SetActive(false);
+			Decline.SetActive(false);
+		}
+	}
+	
+	public void AcceptInvit()
+	{
+		PlayGamesPlatform.Instance.RealTime.AcceptInvitation(mIncomingInvitation.InvitationId, GameListener);
+	}
+	
+	public void DeclineInvit()
+	{
+		PlayGamesPlatform.Instance.RealTime.DeclineInvitation(mIncomingInvitation.InvitationId);
 	}
 	//Used to Sign in
 	public void StartUp()
