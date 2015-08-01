@@ -1,3 +1,5 @@
 lastUpgrade=00921
 proj.AppId=119065303441
 android.SetupDone=true
+App.NearbdServiceId=com.XeonGames.Innermost
+android.NearbySetupDone=true

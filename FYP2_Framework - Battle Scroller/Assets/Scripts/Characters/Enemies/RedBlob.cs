@@ -5,14 +5,6 @@ public class RedBlob : Enemy {
 	
 	Unit MainChr;
 	
-	enum AnimationType
-	{
-		ANI_IDLE,
-		ANI_MOVE,
-		ANI_ATTACK,
-		ANI_TOTAL
-	}
-	
 	enum STATES
 	{	
 		STATE_IDLE = 0,

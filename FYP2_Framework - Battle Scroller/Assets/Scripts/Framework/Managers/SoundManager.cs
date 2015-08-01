@@ -15,7 +15,8 @@ public class SoundManager : MonoBehaviour
 	{
 		EFFECT_NONE,
 		EFFECT_CLICK,
-		EFFECT_ATTACK
+		EFFECT_PUNCH,
+		EFFECT_KICK
 	}
 	
 	public List<AudioFile> AudioList = new List<AudioFile>();

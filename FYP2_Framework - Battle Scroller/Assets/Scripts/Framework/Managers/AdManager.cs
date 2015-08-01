@@ -41,7 +41,7 @@ public class AdManager : MonoBehaviour {
 	
 	
 	void Start () {
-		bannerView = new BannerView("UA-61893481-3", AdSize.Banner, AdPosition.Bottom);
+		bannerView = new BannerView("ca-app-pub-1403275425442397/1529311868", AdSize.Banner, AdPosition.Bottom);
 		// Create an empty ad request.
 		AdRequest request = new AdRequest.Builder().Build();
 		// Load the banner with the request.

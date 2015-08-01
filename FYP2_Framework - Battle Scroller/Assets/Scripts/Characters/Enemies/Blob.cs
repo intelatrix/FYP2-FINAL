@@ -197,4 +197,11 @@ public class Blob : Enemy {
 		else
 			this.transform.localScale = new Vector3(1,1,1);
 	}
+	
+	public override void KillUnit()
+	{
+		Social.ReportProgress("CgkIkbPhxrsDEAIQAA", 100.0f, (bool success) => {
+			// handle success or failure
+		});
+	}
 }
