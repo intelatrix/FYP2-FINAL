@@ -30,7 +30,8 @@ public class Movement : MonoBehaviour
     List<KeyCode> ListOfMovementKeys = new List<KeyCode>();
 
     bool isMoving = false;                                          // Check if Unit is Moving
-    bool facingLeft = false, flipped = false;                       // Check for the player sprite direction
+    [HideInInspector]
+    public bool facingLeft = false, flipped = false;                // Check for the player sprite direction
     public float MovementSpeed = 5.0f;                              // Toggle this value in Editor to increase or decrease movement speed
     public Unit theUnit;                                            // Unit Class
     public Map theMap;                                              // Current Map (for Collision detection)
@@ -78,7 +79,7 @@ public class Movement : MonoBehaviour
     //Movement 
     void Move(KeyCode Key)
     {
-        if (Global.GameOver) return;
+        if (Global.GameOver) return;   
 
         if (!CombatManager.Instance.isAttacking)
             theUnit.theModel.SetAnimation(1);
@@ -160,6 +161,15 @@ public class Movement : MonoBehaviour
     //Update is called once per frame
     void Update()
     {
+        if (Tutorial.isTut() && !Tutorial.Instance.b_TutorialOver)
+        {
+            theUnit.theModel.SetAnimation(0);
+            return;
+        }
+
+        // -- Set Facing Flag
+        facingLeft = !(theUnit.theModel.transform.localScale.x > 0);
+
         //Set Camera Pan Unit
         if (CameraPan.Instance.theUnit != null && CameraPan.Instance.theUnit != this.theUnit)
             CameraPan.Instance.theUnit = this.theUnit;

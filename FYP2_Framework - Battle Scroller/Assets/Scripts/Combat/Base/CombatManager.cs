@@ -33,6 +33,13 @@ public class CombatManager : MonoBehaviour
     public Image ComboBar;
     public string ComboString = null;
 
+    // -- Vars
+    [HideInInspector]
+    public static ushort AttackCount = 0,
+                         ComboCount = 0;
+    [HideInInspector]
+    public static bool BBAExecuted = false;
+
     //Combos
     public bool ComboActive = false;
     
@@ -51,6 +58,9 @@ public class CombatManager : MonoBehaviour
     {
         //Set Instance
         mInstance = this;
+
+        // -- Init Vars
+        AttackCount = ComboCount = 0;
 
         //Set Timer
         ComboTimer.Time = 2.0f;
@@ -101,7 +111,7 @@ public class CombatManager : MonoBehaviour
 	//Update is called once per frame
 	void Update () 
     {
-        if (Global.GameOver) return;
+        if (Tutorial.isTut() && (Global.GameOver || !Tutorial.Instance.b_TutorialOver)) return;
 
         //Timer for Combos
         ComboActive = !Timer.ExecuteTime(ComboTimer.Time, ComboTimer.Index);
@@ -125,6 +135,7 @@ public class CombatManager : MonoBehaviour
                 //Combo Detected, Execute Combo
                 if (ListOfAttacks[i].executeCombo)
                 {
+                    ++ComboCount;
                     ProceedToNonComboAttack = ListOfAttacks[i].executeCombo = false;
                     ListOfAttacks[i].ResetCombo();
                     ProceedToAttack = true;
@@ -142,6 +153,7 @@ public class CombatManager : MonoBehaviour
                 if (Input.GetKeyDown(ListOfAttacks[i].AttackKey))
                 {
                     ProceedToAttack = true;
+                    ++AttackCount;
 
                     bool bAdd = true;
                     if (ComboString != null && ComboString.Length > 3 && ComboString.Substring(0, 3) == "Exe")

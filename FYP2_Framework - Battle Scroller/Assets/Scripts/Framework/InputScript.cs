@@ -131,36 +131,37 @@ public class InputScript : MonoBehaviour
             TouchDown = false;
 #elif UNITY_ANDROID
         //Analog
-        foreach (Touch touch in Input.touches)
-        {
-            bool Proceed =  false;
+        //foreach (Touch touch in Input.touches)
+        //{
+        //    bool Proceed =  false;
 
-            //1st Touch
-            if (Input.touches.Length <= 1)
-            {
-                //Analog not moving, thus indicating firing 
-                //   (touching else where on the Screen)
-                if (!Analog.Instance.Move)
-                    Proceed = true;
+        //    //1st Touch
+        //    if (Input.touches.Length <= 1)
+        //    {
+        //        //Analog not moving, thus indicating firing 
+        //        //   (touching else where on the Screen)
+        //        if (!Analog.Instance.Move)
+        //            Proceed = true;
 
-                //1 Touch + Analog Moving = Not Firing
-                else
-                    TouchDown = false;
-            }
+        //        //1 Touch + Analog Moving = Not Firing
+        //        else
+        //            TouchDown = false;
+        //    }
 
-            // > 1 Touch indicates Firing in progress
-            else
-                Proceed = true;
+        //    // > 1 Touch indicates Firing in progress
+        //    else
+        //        Proceed = true;
 
-            //Firing in Progress
-            if (Proceed)
-            {
-                if (touch.phase != TouchPhase.Ended)
-                    TouchDown = true;
-                else
-                    TouchDown = false;
-            }
-        }
+        //    //Firing in Progress
+        //    if (Proceed)
+        //    {
+        //        if (touch.phase != TouchPhase.Ended)
+        //            TouchDown = true;
+        //        else
+        //            TouchDown = false;
+        //    }
+        //}
+        TouchDown = (Input.touches.Length > 0);
 #endif
     }
 }

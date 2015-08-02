@@ -28,7 +28,7 @@ public class Attack_Kick_Combo : AttackScript
         this.AnimationIndex = 2; //6
 
         //Set Anim Time
-        this.AnimationTimer.Time = 0.7f;
+        this.AnimationTimer.Time = 0.4f;
 	}
 	
 	//Update is called once per frame
@@ -36,5 +36,9 @@ public class Attack_Kick_Combo : AttackScript
     {
 	    //Update from Parent
         this.StaticUpdate();
+
+        // -- BBA Executed;
+        if (this.executeCombo && Tutorial.isTut() && CombatManager.AttackCount >= 4)
+            CombatManager.BBAExecuted = true;
 	}
 }

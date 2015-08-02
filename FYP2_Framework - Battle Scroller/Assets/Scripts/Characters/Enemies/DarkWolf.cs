@@ -63,7 +63,11 @@ public class DarkWolf : Enemy {
 	}
 	
 	// Update is called once per frame
-	public void Update () {
+	public void Update () 
+    {
+        if (Tutorial.isTut() && !Tutorial.Instance.b_TutorialOver)
+            return;
+
 		ChangeState();
 		StaticUpdate ();
 		Action();

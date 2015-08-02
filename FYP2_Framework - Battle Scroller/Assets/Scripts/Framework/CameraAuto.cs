@@ -28,6 +28,10 @@ public class CameraAuto : MonoBehaviour
     public bool doPan = false;
     public Transform[] Scroll_List;
 
+    //Background
+    public GameObject Background;
+
+
 	// === Initialisation === //
 	void Start () 
     {
@@ -67,6 +71,10 @@ public class CameraAuto : MonoBehaviour
                     //Pan Objects in Scroll_List
                     for (short i = 0; i < Scroll_List.Length; ++i)
                         Scroll_List[i].Translate(ScrollSpeed * Time.deltaTime, 0.0f, 0.0f);
+
+                    //Translate BG at 0.5x Speed
+                    if (Background != null)
+                        Background.transform.Translate(ScrollSpeed * Time.deltaTime * 0.5f, 0.0f, 0.0f);
                 }
 
                 //Pan Y
@@ -77,7 +85,11 @@ public class CameraAuto : MonoBehaviour
 
                     //Pan Objects in Scroll_List
                     for (short i = 0; i < Scroll_List.Length; ++i)
-                        Scroll_List[i].Translate(ScrollSpeed * Time.deltaTime, 0.0f, 0.0f);
+                        Scroll_List[i].Translate(0.0f, ScrollSpeed * Time.deltaTime, 0.0f);
+
+                    //Translate BG at 0.5x Speed
+                    if (Background != null)
+                        Background.transform.Translate(0.0f, ScrollSpeed * Time.deltaTime * 0.5f, 0.0f);
                 }
             }
         }

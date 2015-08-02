@@ -12,6 +12,7 @@ public class Background : MonoBehaviour
     //Background Objects
     public SpriteRenderer[] BG = new SpriteRenderer[3];
     int CurIndex = 1;
+    public bool b_isScroll = false;
 	
     //Init
     void Start()
@@ -25,10 +26,26 @@ public class Background : MonoBehaviour
         TempPos = BG[CurIndex].transform.position;
         TempPos.x -= BG[CurIndex].gameObject.GetComponent<Collider>().bounds.size.x;
         BG[CurIndex - 1].transform.position = TempPos;
+
+        //Start Scroll Coroutine
+        if (b_isScroll)
+            StartCoroutine(ScrollWithTime());
     }
 
-	//Update is called once per frame
-	void Update () 
+    IEnumerator ScrollWithTime()
+    {
+        while (true)
+        {
+            for (short i = 0; i < BG.Length; ++i)
+                BG[i].transform.position = new Vector3(BG[i].transform.position.x - Time.deltaTime * 2.0f,
+                                                       BG[i].transform.position.y,
+                                                       BG[i].transform.position.z);
+            yield return null;
+        }
+    }
+
+    //Update is called once per frame
+    void Update() 
     {
         //Set Positions
         float Cam_Pos = Camera.main.transform.position.x + Camera.main.rect.size.x * 0.5f,

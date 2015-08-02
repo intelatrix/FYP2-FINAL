@@ -102,7 +102,7 @@ public class Unit : MonoBehaviour
 
         //Init Game Object Tag
         if (theModel.gameObject.tag == null)
-            theModel.gameObject.tag = this.gameObject.tag = "UNIT";
+            theModel.gameObject.tag = "UNIT";
     }
 
 	//Use this for initialization
@@ -139,15 +139,18 @@ public class Unit : MonoBehaviour
     //Parent Update
     public void StaticUpdate()
     {
+        if (Tutorial.isTut() && !Tutorial.Instance.b_TutorialOver)
+            return;
+
         //Cap Z Pos
         Vector3 CapZ = new Vector3(transform.position.x, transform.position.y, 0.0f);
         this.transform.position = CapZ;
 
         //Set Tag
         if (this.isPlayerUnit)
-            theModel.gameObject.tag = this.gameObject.tag = "PLAYER_UNIT";
+            theModel.gameObject.tag = "PLAYER_UNIT";
         else
-            theModel.gameObject.tag = this.gameObject.tag = "UNIT";
+            theModel.gameObject.tag = "UNIT";
 
         //Destroy if Dead
         if (this.Stats.HP <= 0.0f && this.gameObject.tag != "PLAYER_UNIT")

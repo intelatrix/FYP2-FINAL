@@ -18,7 +18,8 @@ public class AttackScript : MonoBehaviour
         ATTACK_PUNCH,
         ATTACK_KICK,
         ATTACK_KICK_COMBO,
-        ATTACK_COMBO_MULTI
+        ATTACK_COMBO_MULTI,
+        ATTACK_COMBO_FIRE
     } public AType AttackType = AType.ATTACK_DEFAULT;
 
     //Attack Key

@@ -27,11 +27,19 @@ public class WaveSystem : MonoBehaviour
 
 		if (WaveList.Count > 0 && WaveList[0].b_WaveCleared)
 		{
-			WaveList[0].doNotPan = (WaveList.Count == 1);
+            WaveList[0].doNotPan = (WaveList.Count == 1);
+
+            bool DoNotProceed = false;
+            if ((Tutorial.isTut() && !CombatManager.BBAExecuted) ||
+                (Tutorial.isTut() && Tutorial.Instance.ScreenObject.activeSelf))
+                WaveList[0].doNotPan = DoNotProceed = true;
 				
-			++curIndex;
-			WaveList[0].b_ProceedToDestroy = true;
-			WaveList.RemoveAt(0);
+            if (!DoNotProceed)
+            {
+                ++curIndex;
+                WaveList[0].b_ProceedToDestroy = true;
+                WaveList.RemoveAt(0);
+            }
 			if (WaveList.Count > 0)
 			{
 				foreach(Transform child in WaveList[0].transform)
