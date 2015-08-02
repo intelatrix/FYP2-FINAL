@@ -17,6 +17,7 @@ public class DarkWolf : Enemy {
 	
 	public Collider WayPointsBoundary;
 	public CollisionRegion AttackRegion;
+	public Collider SurvivalPlayArea = null;
 	
 	STATES current_state;
 	float NextPetrol = 0;
@@ -34,11 +35,11 @@ public class DarkWolf : Enemy {
 			
 	public void RandomizeStats()
 	{
-		Debug.Log("Wolf Inited.");
-		Stats.Set(1, Random.Range(500, 700),
-		          Random.Range(190, 270), Random.Range(150, 220),
-		          Random.Range(190, 270), Random.Range(150, 220),
-		          Random.Range(1.1f, 1.75f), "Mage", "Tsunayoshi");
+		Debug.Log("DarkWolf");
+		Stats.Set(1, 50,
+		          7, 0,
+		          0,0,
+		          0, "DarkWolf", "DarkWolf");
 	}
 	
 	// Use this for initialization
@@ -217,6 +218,23 @@ public class DarkWolf : Enemy {
 	
 	public override void KillUnit()
 	{
+		if(Application.loadedLevelName != "1_00_SurvivalGameScene")
+			Destroy(DestroyWhenKill);
+	}
+	
+	void OutOfBound()
+	{
+		if(SurvivalPlayArea != null)
+		{
+			if(!SurvivalPlayArea.bounds.Contains(transform.position))
+				transform.position = LastPosition;
+		}
+	}
+	
+	public void SetSurvival(GameObject MonsterParent)
+	{
+		this.transform.parent = MonsterParent.transform;
+		WayPointsBoundary = SurvivalPlayArea;
 		Destroy(DestroyWhenKill);
 	}
 }

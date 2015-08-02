@@ -4,7 +4,7 @@ using System.Collections;
 public class Blob : Enemy {
 
     Unit MainChr;
-    
+	public Collider SurvivalPlayArea = null;
     enum AnimationType
     {
     	ANI_IDLE,
@@ -41,11 +41,11 @@ public class Blob : Enemy {
 	
 	public void RandomizeStats()
 	{
-	    Debug.Log("Mage Stats Inited.");
-	    Stats.Set(1, Random.Range(500, 700),
-	              Random.Range(190, 270), Random.Range(150, 220),
-	              Random.Range(190, 270), Random.Range(150, 220),
-	              Random.Range(1.1f, 1.75f), "Mage", "Tsunayoshi");
+	    Debug.Log("Blob");
+	    Stats.Set(1, 45,
+	              5, 0,
+	            	0,0,
+	              0, "Blob", "Slime");
 	}
 
 	// Use this for initialization
@@ -194,11 +194,28 @@ public class Blob : Enemy {
 			break;
 		}
 		
+		OutOfBound();
 		FaceLeft = LastPosition.x > this.transform.position.x;
 		
 		if(FaceLeft)
 			this.transform.localScale = new Vector3(-1,1,1);
 		else
 			this.transform.localScale = new Vector3(1,1,1);
+	}
+	
+	public override void KillUnit()
+	{
+		Social.ReportProgress("CgkIkbPhxrsDEAIQAA", 100.0f, (bool success) => {
+			// handle success or failure
+		});
+	}
+	
+	void OutOfBound()
+	{
+		if(SurvivalPlayArea != null)
+		{
+			if(!SurvivalPlayArea.bounds.Contains(transform.position))
+				transform.position = LastPosition;
+		}
 	}
 }

@@ -15,7 +15,10 @@ public class Global : MonoBehaviour
     public static short EnemyKillCount = 0;
     public static short ExecuteFirstComboCheck = 0;
     public static bool GameOver = false;
+	public static bool SurvivalCountDown;
+	public static bool SurivalGameLost;
     public bool GameOverShow;
+   
 
     //Start Function
     void Start()
