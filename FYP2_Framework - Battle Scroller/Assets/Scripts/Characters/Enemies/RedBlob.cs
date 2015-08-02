@@ -4,6 +4,7 @@ using System.Collections;
 public class RedBlob : Enemy {
 	
 	Unit MainChr;
+	public Collider SurvivalPlayArea = null;
 	
 	enum STATES
 	{	
@@ -33,11 +34,11 @@ public class RedBlob : Enemy {
 	
 	public void RandomizeStats()
 	{
-		Debug.Log("Mage Stats Inited.");
-		Stats.Set(1, Random.Range(500, 700),
-		          Random.Range(190, 270), Random.Range(150, 220),
-		          Random.Range(190, 270), Random.Range(150, 220),
-		          Random.Range(1.1f, 1.75f), "Mage", "Tsunayoshi");
+		Debug.Log("RedBlob");
+		Stats.Set(1, 60,
+		          5, 0,
+		          0,0,
+		          0, "RedBlob", "RedSlime");
 	}
 	
 	// Use this for initialization
@@ -182,11 +183,21 @@ public class RedBlob : Enemy {
 			break;
 		}
 		
+		OutOfBound();
 		FaceLeft = LastPosition.x > this.transform.position.x;
 		
 		if(FaceLeft)
 			this.transform.localScale = new Vector3(-1,1,1);
 		else
 			this.transform.localScale = new Vector3(1,1,1);
+	}
+	
+	void OutOfBound()
+	{
+		if(SurvivalPlayArea != null)
+		{
+			if(!SurvivalPlayArea.bounds.Contains(transform.position))
+				transform.position = LastPosition;
+		}
 	}
 }

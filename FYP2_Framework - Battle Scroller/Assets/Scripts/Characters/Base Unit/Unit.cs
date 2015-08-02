@@ -158,8 +158,16 @@ public class Unit : MonoBehaviour
             	Destroy(this.gameObject);
         }
         else if (this.gameObject.tag == "PLAYER_UNIT" && this.Stats.HP <= 0.0f)
-            Global.GameOver = true;
-
+        {	
+			if(Application.loadedLevelName == "1_00_SurvivalGameScene")
+        	{
+				Global.SurivalGameLost = true;
+        	}
+        	else
+        	{
+        		Global.GameOver = true;
+            }
+		}
         //FSM
         UpdateStateChange();
         ExecuteState();

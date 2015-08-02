@@ -11,6 +11,7 @@ public class WaveSystem : MonoBehaviour
     short curIndex = 0;
     public Text WaveText;
 	public GameObject[] GameOverObj;
+	public GameObject MonstersParent;
 
 	//Update Func
 	void Update () 

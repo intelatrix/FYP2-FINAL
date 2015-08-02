@@ -79,6 +79,7 @@ public class Movement : MonoBehaviour
     void Move(KeyCode Key)
     {
         if (Global.GameOver) return;
+		if (Global.SurvivalCountDown) return;
 
         if (!CombatManager.Instance.isAttacking)
             theUnit.theModel.SetAnimation(1);
@@ -184,6 +185,7 @@ public class Movement : MonoBehaviour
 
         if (Analog.Instance.Move)
         {
+			if (Global.SurvivalCountDown) return;
             theUnit.State = Unit.EState.MOVE;
 
             //RayCast

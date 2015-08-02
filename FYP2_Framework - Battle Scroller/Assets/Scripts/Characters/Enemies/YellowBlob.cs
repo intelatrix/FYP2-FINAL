@@ -4,6 +4,7 @@ using System.Collections;
 public class YellowBlob : Enemy {
 	
 	Unit MainChr;
+	public Collider SurvivalPlayArea = null;
 	
 	enum AnimationType
 	{
@@ -41,11 +42,11 @@ public class YellowBlob : Enemy {
 	
 	public void RandomizeStats()
 	{
-		Debug.Log("Mage Stats Inited.");
-		Stats.Set(1, Random.Range(500, 700),
-		          Random.Range(190, 270), Random.Range(150, 220),
-		          Random.Range(190, 270), Random.Range(150, 220),
-		          Random.Range(1.1f, 1.75f), "Mage", "Tsunayoshi");
+		Debug.Log("RedBlob");
+		Stats.Set(1, 30,
+		          10, 0,
+		          0,0,
+		          0, "YellowBlob", "YellowSlime");
 	}
 	
 	// Use this for initialization
@@ -94,14 +95,14 @@ public class YellowBlob : Enemy {
 			{
 				theModel.SetTrigger("YellowBlobMove");
 				current_state = STATES.STATE_PETROL;
-				NextPetrol = Random.Range(2f, 5f);
+				NextPetrol = Random.Range(1f, 2.5f);
 				PetrolLeft = !PetrolLeft;
 			}
 			break;
 		case STATES.STATE_PETROL:
 			//if Character is close enough, chase Character
 			//else if Timer is down, goes into idle mode
-			if (Vector3.Distance(this.transform.position, MainChr.transform.position) <= 2)
+			if (Vector3.Distance(this.transform.position, MainChr.transform.position) <= 3)
 			{
 				current_state = STATES.STATE_MOVE;
 				theModel.SetTrigger("YellowBlobMove");
@@ -115,7 +116,7 @@ public class YellowBlob : Enemy {
 			break;
 		case STATES.STATE_MOVE:
 			//if Character Move out of range goes back to Idle
-			if (Vector3.Distance(this.transform.position, MainChr.transform.position) > 2)
+			if (Vector3.Distance(this.transform.position, MainChr.transform.position) > 3)
 			{
 				theModel.SetTrigger("YellowBlobIdle");
 				current_state = STATES.STATE_IDLE; 
@@ -160,19 +161,19 @@ public class YellowBlob : Enemy {
 			if(PetrolLeft)
 			{
 				//MoveLeft
-				this.transform.Translate(new Vector3(-1.0f,0,0)*Time.deltaTime);
+				this.transform.Translate(new Vector3(-3.0f,0,0)*Time.deltaTime);
 			}
 			else
 			{
 				//MoveRight
-				this.transform.Translate(new Vector3(1.0f,0,0)*Time.deltaTime);
+				this.transform.Translate(new Vector3(3.0f,0,0)*Time.deltaTime);
 			}
 			NextPetrol -= Time.deltaTime;
 			//Debug.Log("Petrolling");
 			break;
 		case STATES.STATE_MOVE:
 			//Move towards main character
-			this.transform.Translate((MainChr.gameObject.transform.position - this.transform.position).normalized * Time.deltaTime);
+			this.transform.Translate((MainChr.gameObject.transform.position - this.transform.position).normalized * Time.deltaTime*4);
 			//Debug.Log("Moveing");
 			break;
 		case STATES.STATE_ATTACKING:
@@ -184,17 +185,27 @@ public class YellowBlob : Enemy {
 			//Debug.Log("Attacking");
 			if(AttackRegion.inRegion && !DealDamage)
 			{
-				Movement.Instance.theUnit.Stats.TakePhysicalDamage(this.Stats, 2.0f);
+				Movement.Instance.theUnit.Stats.TakePhysicalDamage(this.Stats, 4.0f);
 				DealDamage = true;
 			}	
 			break;
 		}
 		
+		OutOfBound();
 		FaceLeft = LastPosition.x > this.transform.position.x;
 		
 		if(FaceLeft)
 			this.transform.localScale = new Vector3(-1,1,1);
 		else
 			this.transform.localScale = new Vector3(1,1,1);
+	}
+	
+	void OutOfBound()
+	{
+		if(SurvivalPlayArea != null)
+		{
+			if(!SurvivalPlayArea.bounds.Contains(transform.position))
+				transform.position = LastPosition;
+		}
 	}
 }

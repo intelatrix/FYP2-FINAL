@@ -70,8 +70,9 @@ public class GooglePlayerManager : MonoBehaviour {
 		});
 	}
 	
-	public void PostSurvivalScore(long Score)
+	public void PostSurvivalScore(float TimeLasted)
 	{
+		long Score = (long)TimeLasted*1000;
 		Social.ReportScore(Score, "CgkIkbPhxrsDEAIQBg", (bool success) => {
 			// handle success or failure
 		});
